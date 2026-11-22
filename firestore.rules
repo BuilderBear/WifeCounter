@@ -1,0 +1,41 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // The one shared counter lives at /counters/wife
+    match /counters/wife {
+      // Anyone signed in can watch the count
+      allow read: if request.auth != null;
+
+      // First press ever creates the doc at 1
+      allow create: if request.auth != null
+        && validShape()
+        && request.resource.data.count == 1;
+
+      // Every later press can only move the count by exactly +1 or -1,
+      // and it can never drop below zero.
+      allow update: if request.auth != null
+        && validShape()
+        && request.resource.data.count >= 0
+        && (request.resource.data.count == resource.data.count + 1
+            || request.resource.data.count == resource.data.count - 1);
+
+      allow delete: if false;
+
+      function validShape() {
+        let d = request.resource.data;
+        return d.keys().hasOnly(['count', 'lastBy', 'lastAction', 'updatedAt'])
+          && d.count is int
+          && d.lastBy is string && d.lastBy.size() <= 60
+          && d.lastAction in ['plus', 'minus']
+          && d.updatedAt == request.time;
+      }
+    }
+
+    // Everything else is locked
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

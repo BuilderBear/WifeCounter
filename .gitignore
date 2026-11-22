@@ -1,0 +1,7 @@
+# Firebase CLI cache / logs
+.firebase/
+*-debug.log
+
+# Local tooling
+.claude/
+node_modules/

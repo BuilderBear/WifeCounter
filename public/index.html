@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>The Wife-O-Meter</title>
+  <meta name="theme-color" content="#ffd23f" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="title-wrap">
+      <h1 class="title">The Wife&#8209;O&#8209;Meter</h1>
+      <p class="subtitle">Official tally of times <span id="brother-name">he</span> has said “<b>wife</b>”</p>
+    </header>
+
+    <!-- Signed-out view -->
+    <section id="login-view" class="panel hidden">
+      <div class="bubble small">Who goes there?!</div>
+      <p class="panel-text">Sign in to join the official counting committee.</p>
+      <button id="login-btn" class="btn btn-blue">Sign in with Google</button>
+      <p id="login-error" class="error hidden"></p>
+    </section>
+
+    <!-- Signed-in view -->
+    <section id="counter-view" class="panel hidden">
+      <div class="burst-wrap">
+        <svg class="ring" viewBox="0 0 200 220" aria-hidden="true">
+          <!-- band: black outline, gold fill, shine -->
+          <circle class="band-outline" cx="100" cy="135" r="68" />
+          <circle class="band-gold" cx="100" cy="135" r="68" />
+          <path class="band-shine" d="M 52 100 A 60 60 0 0 1 86 72" />
+          <path class="band-shade" d="M 160 150 A 62 62 0 0 1 120 196" />
+          <!-- setting -->
+          <polygon class="setting" points="82,56 118,56 111,74 89,74" />
+          <!-- diamond -->
+          <polygon class="gem" points="74,24 126,24 142,42 100,70 58,42" />
+          <polyline class="facet" points="58,42 142,42" />
+          <polyline class="facet" points="74,24 86,42 100,70 114,42 126,24" />
+          <polyline class="facet" points="86,42 100,24 114,42" />
+          <path class="gem-shine" d="M 79 31 L 89 31 L 84 38 Z" />
+          <!-- sparkles -->
+          <path class="sparkle s1" d="M 160 18 L 164 30 L 176 34 L 164 38 L 160 50 L 156 38 L 144 34 L 156 30 Z" />
+          <path class="sparkle s2" d="M 34 8 L 37 17 L 46 20 L 37 23 L 34 32 L 31 23 L 22 20 L 31 17 Z" />
+        </svg>
+        <div id="count" class="count" aria-live="polite">–</div>
+      </div>
+      <p id="milestone" class="milestone">Warming up the wife detector…</p>
+
+      <button id="plus-btn" class="btn btn-red btn-huge" disabled>
+        He said it!
+        <span class="btn-sub">+1 wife</span>
+      </button>
+      <button id="minus-btn" class="btn btn-grey" disabled>Mistake</button>
+
+      <p id="last-by" class="last-by"></p>
+      <p id="error" class="error hidden"></p>
+
+      <div class="footer-row">
+        <span id="who" class="who"></span>
+        <button id="logout-btn" class="link-btn">sign out</button>
+      </div>
+    </section>
+
+    <div id="loading" class="panel loading">Loading…</div>
+  </main>
+
+  <div id="fx-layer" aria-hidden="true"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
